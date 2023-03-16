@@ -1,0 +1,22 @@
+.status {
+    display: flex;
+}
+
+.status > p, button {
+    margin: 10px;
+}
+
+.task {
+    border: solid 2px black;
+    border-radius: 5px 5px 5px 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /*max-width: 20%;*/
+    padding: 10px;
+}
+
+.lists {
+    display: flex;
+}
