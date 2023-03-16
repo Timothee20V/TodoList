@@ -7,6 +7,7 @@ class TaskList extends Component {
         this.state = {
             tasks: [
                 {
+                    id: 1,
                     isDone: false,
                     isDeleted: false,
                     title: "Tâche 1",
@@ -14,6 +15,7 @@ class TaskList extends Component {
                     comment: "",
                 },
                 {
+                    id: 2,
                     isDone: true,
                     isDeleted: false,
                     title: "Tâche 2",
@@ -21,6 +23,7 @@ class TaskList extends Component {
                     comment: "",
                 },
                 {
+                    id: 3,
                     isDone: false,
                     isDeleted: false,
                     title: "Tâche 1",
@@ -28,6 +31,7 @@ class TaskList extends Component {
                     comment: "",
                 },
                 {
+                    id: 4,
                     isDone: true,
                     isDeleted: false,
                     title: "Tâche 2",
@@ -35,6 +39,7 @@ class TaskList extends Component {
                     comment: "",
                 },
                 {
+                    id: 5,
                     isDone: false,
                     isDeleted: false,
                     title: "Tâche 1",
@@ -42,6 +47,7 @@ class TaskList extends Component {
                     comment: "",
                 },
                 {
+                    id: 6,
                     isDone: true,
                     isDeleted: false,
                     title: "Tâche 2",
@@ -52,22 +58,48 @@ class TaskList extends Component {
         }
     }
 
-    handleCreateTask(task) {
-        console.log(this.state.tasks)
-        const newTasks = this.state.tasks.slice();
-        newTasks.push(task);
+    handleDone() {
         this.setState({
-            tasks: newTasks,
+            isDone: !this.state.isDone,
         })
     }
 
-    renderNotDoneTasks(){
-        const notDoneTasks = this.state.tasks.filter((task) => task.isDone === false);
-        return notDoneTasks.map((task) => (<TaskItem onCreateTask={(task) => this.handleCreateTask(task)}/>));
+    handleDelete() {
+        this.setState({
+            isDeleted: !this.state.isDeleted,
+        })
     }
+
+    // handleCreateTask(task) {
+    //     console.log(this.state.tasks)
+    //     const newTasks = this.state.tasks.slice();
+    //     newTasks.push(task);
+    //     this.setState({
+    //         tasks: newTasks,
+    //     })
+    // }
+
+    renderTask(task) {
+        return (
+            <TaskItem
+                // onCreateTask={() => this.handleCreateTask(task)}
+                onClick1 = {() => this.handleDone()}
+                onClick2 = {() => this.handleDelete()}
+                i = {task}
+                value={this.state.tasks[task]}
+
+            />
+        )
+    }
+
+    renderNotDoneTasks() {
+        const notDoneTasks = this.state.tasks.filter((task) => task.isDone === false);
+        return notDoneTasks.map((task) => (this.renderTask(task)));
+    }
+
     renderDoneTasks() {
         const doneTasks = this.state.tasks.filter((task) => task.isDone === true);
-        return doneTasks.map((task) => (<TaskItem onCreateTask={(task) => this.handleCreateTask(task)}/>))
+        return doneTasks.map((task) => (this.renderTask(task)))
     }
 
     render() {
