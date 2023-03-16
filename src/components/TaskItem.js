@@ -24,8 +24,8 @@ class TaskItem extends Component {
                 <p>{task.description}</p>
                 <p>{task.comment}</p>
                 <div className='status'>
-                    <button onClick={() => this.props.onClick1(task)}>{this.state.isDone ? 'Reprendre' : 'Terminer'}</button>
-                    <button onClick={() => this.props.onClick2(task)}>{this.state.isDeleted ? 'Desarchiver' : 'Supprimer'}</button>
+                    <button onClick={() => this.props.onClick1(task)}>{task.isDone ? 'Reprendre' : 'Terminer'}</button>
+                    <button onClick={() => this.props.onClick2(task)}>{task.isDeleted ? 'Desarchiver' : 'Supprimer'}</button>
                 </div>
             </div>
         )
