@@ -7,86 +7,80 @@ class TaskList extends Component {
         this.state = {
             tasks: [
                 {
-                    id: 1,
+                    id: 0,
                     isDone: false,
                     isDeleted: false,
-                    title: "Tâche 1",
-                    description: "Description de la tâche 1",
-                    comment: "",
+                    title: "Acheter des courses",
+                    description: "Faire les courses pour la semaine",
+                    comment: "J'irai au supermarché demain matin",
+                },
+                {
+                    id: 1,
+                    isDone: true,
+                    isDeleted: false,
+                    title: "Rendre un livre à la bibliothèque",
+                    description: "Rendre le livre emprunté à la bibliothèque",
+                    comment: "Je l'ai déjà lu, je vais le rendre cet après-midi",
                 },
                 {
                     id: 2,
-                    isDone: true,
+                    isDone: false,
                     isDeleted: false,
-                    title: "Tâche 2",
-                    description: "Description de la tâche 2",
-                    comment: "",
+                    title: "Appeler le plombier",
+                    description: "Prendre rendez-vous avec le plombier pour réparer le robinet de la cuisine",
+                    comment: "Je vais appeler dès maintenant",
                 },
                 {
                     id: 3,
-                    isDone: false,
+                    isDone: true,
                     isDeleted: false,
-                    title: "Tâche 1",
-                    description: "Description de la tâche 1",
-                    comment: "",
+                    title: "Faire du sport",
+                    description: "Aller à la salle de sport pour faire une séance de musculation",
+                    comment: "C'était une bonne séance, je me sens fatigué mais satisfait",
                 },
                 {
                     id: 4,
-                    isDone: true,
+                    isDone: false,
                     isDeleted: false,
-                    title: "Tâche 2",
-                    description: "Description de la tâche 2",
-                    comment: "",
+                    title: "Envoyer un mail important",
+                    description: "Envoyer un mail important à mon collègue",
+                    comment: "Je vais le relire une dernière fois avant de l'envoyer",
                 },
                 {
                     id: 5,
-                    isDone: false,
-                    isDeleted: false,
-                    title: "Tâche 1",
-                    description: "Description de la tâche 1",
-                    comment: "",
-                },
-                {
-                    id: 6,
                     isDone: true,
                     isDeleted: false,
-                    title: "Tâche 2",
-                    description: "Description de la tâche 2",
-                    comment: "",
+                    title: "Préparer le dîner",
+                    description: "Préparer un dîner pour mes amis qui viennent ce soir",
+                    comment: "J'ai besoin d'aller faire quelques courses supplémentaires pour la recette",
                 },
             ],
         }
     }
 
-    handleDone() {
+    handleDone(id) {
+        const newTasks = this.state.tasks.slice()
+        newTasks[id].isDone = !this.state.tasks[id].isDone
         this.setState({
-            isDone: !this.state.isDone,
+            tasks: newTasks,
         })
     }
 
-    handleDelete() {
+    handleDelete(id) {
+        const newTasks = this.state.tasks.slice()
+        newTasks[id].isDeleted = !this.state.tasks[id].isDeleted
         this.setState({
-            isDeleted: !this.state.isDeleted,
+            tasks: newTasks,
         })
     }
-
-    // handleCreateTask(task) {
-    //     console.log(this.state.tasks)
-    //     const newTasks = this.state.tasks.slice();
-    //     newTasks.push(task);
-    //     this.setState({
-    //         tasks: newTasks,
-    //     })
-    // }
 
     renderTask(task) {
         return (
             <TaskItem
-                // onCreateTask={() => this.handleCreateTask(task)}
-                onClick1 = {() => this.handleDone()}
-                onClick2 = {() => this.handleDelete()}
-                i = {task}
-                value={this.state.tasks[task]}
+                key={task.id}
+                onClick1 = {() => this.handleDone(task.id)}
+                onClick2 = {() => this.handleDelete(task.id)}
+                task={task}
 
             />
         )
