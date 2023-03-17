@@ -14,18 +14,17 @@ class TaskItem extends Component {
 
     render() {
         const task = this.props.task;
+        let color = task.isDone ? 'green' : 'blue'
+        color = task.isDeleted ? 'red' : color
+        const style = {background: color}
         return (
-            <div className='task'>
+            <div style={style} className='task'>
                 <h2>{task.title}</h2>
-                <div className='status'>
-                    <p>{task.isDone ? 'Terminée' : 'Non terminée'}</p>
-                    <p>{task.isDeleted ? 'Supprimée' : 'Non supprimée'}</p>
-                </div>
                 <p>{task.description}</p>
                 <p>{task.comment}</p>
                 <div className='status'>
-                    <button onClick={() => this.props.onClick1(task)}>{task.isDone ? 'Reprendre' : 'Terminer'}</button>
-                    <button onClick={() => this.props.onClick2(task)}>{task.isDeleted ? 'Desarchiver' : 'Supprimer'}</button>
+                    <button style={style} onClick={() => this.props.onClick1(task)}>{task.isDone ? 'Reprendre' : 'Terminer'}</button>
+                    <button style={style} onClick={() => this.props.onClick2(task)}>{task.isDeleted ? 'Réstaurer' : 'Supprimer'}</button>
                 </div>
             </div>
         )

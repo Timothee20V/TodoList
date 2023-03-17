@@ -2,8 +2,8 @@
     display: flex;
 }
 
-.status > p, button {
-    margin: 10px;
+p, button {
+    margin: 2px;
 }
 
 .task {
@@ -13,12 +13,14 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    max-width: 200px;
-    max-height: 300px;
-    padding: 10px;
+    padding: 5px;
     margin: 2px;
 }
 
 .lists {
     display: flex;
+}
+
+.column {
+    width: 25%;
 }
