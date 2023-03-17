@@ -26,9 +26,17 @@ class TaskList extends Component {
         })
     }
 
+    handleOnGoing(id) {
+        const newTasks = this.state.tasks.slice()
+        newTasks[id].isOnGoing = !this.state.tasks[id].isOnGoing
+        this.setState({
+            tasks: newTasks,
+        })
+    }
+
     handleCreate = (newTask) => {
-        console.log(newTask)
-        newTask.id = this.state.tasks.length
+        console.log(this.state.tasks)
+        newTask.id = this.state.tasks[this.state.tasks.length - 1] ? this.state.tasks[this.state.tasks.length-1].id + 1 : 0
         this.setState(prevState => ({
             tasks: [...prevState.tasks, newTask]
         }));
@@ -40,13 +48,14 @@ class TaskList extends Component {
                 key={task.id}
                 onClick1={() => this.handleDone(task.id)}
                 onClick2={() => this.handleDelete(task.id)}
+                onClick3={() => this.handleOnGoing(task.id)}
                 task={task}
             />
         )
     }
 
     renderNotDoneTasks() {
-        const notDoneTasks = this.state.tasks.filter((task) => task.isDone === false && task.isDeleted === false);
+        const notDoneTasks = this.state.tasks.filter((task) => task.isDone === false && task.isOnGoing === true && task.isDeleted === false);
         return notDoneTasks.map((task) => (this.renderTask(task)));
     }
 
@@ -55,9 +64,9 @@ class TaskList extends Component {
         return doneTasks.map((task) => (this.renderTask(task)))
     }
 
-    renderDeletedTasks() {
-        const deletedTasks = this.state.tasks.filter((task) => task.isDeleted === true);
-        return deletedTasks.map((task) => (this.renderTask(task)));
+    renderOnGoingTasks() {
+        const archivedTasks = this.state.tasks.filter((task) => task.isOnGoing === false && task.isDeleted === false && task.isDone === false);
+        return archivedTasks.map((task) => (this.renderTask(task)));
     }
 
     renderForm() {
@@ -75,18 +84,18 @@ class TaskList extends Component {
                 <h1>TODOLIST</h1>
                 <div className='lists'>
                     <div className='column'>
-                        <p>Tâches non terminées</p>
+                        <p>A faire</p>
+                        {this.renderOnGoingTasks()}
+                    </div>
+                    <div className='column'>
+                        <p>En cours</p>
                         {this.renderNotDoneTasks()}
                     </div>
                     <div className='column'>
-                        <p>Tâche terminées</p>
+                        <p>Terminées</p>
                         {this.renderDoneTasks()}
                     </div>
                     <div className='column'>
-                        <p>Tâche supprimées</p>
-                        {this.renderDeletedTasks()}
-                    </div>
-                    <div>
                         <p>Ajouter une tâche</p>
                         {this.renderForm()}
                     </div>

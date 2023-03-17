@@ -7,6 +7,7 @@ class TaskForm extends Component {
             id: '',
             isDone: false,
             isDeleted: false,
+            isOnGoing: false,
             title: '',
             description: '',
             comment: ''
@@ -25,11 +26,11 @@ class TaskForm extends Component {
             id,
             isDone: false,
             isDeleted: false,
+            isOnGoing: false,
             title,
             description,
             comment,
         };
-        console.log(newTask)
         this.props.handleCreate(newTask);
         this.setState({
             id:'',

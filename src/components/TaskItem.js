@@ -6,6 +6,7 @@ class TaskItem extends Component {
         this.state = {
             isDone: props.isDone,
             isDeleted: props.isDeleted,
+            isOnGoing: props.isOnGoing,
             title: props.title,
             description: props.description,
             comment: props.comment,
@@ -14,20 +15,41 @@ class TaskItem extends Component {
 
     render() {
         const task = this.props.task;
-        let color = task.isDone ? 'green' : 'blue'
-        color = task.isDeleted ? 'red' : color
-        const style = {background: color}
+        let color = task.isOnGoing ? '#065DC6' : '#C61B06';
+        color = task.isDone ? '#187506' : color;
+        const styleTxt = {
+            color: color,
+            opacity: 1
+        }
+        const styleBg = {
+            background: 'gray',
+            opacity: 0.8
+        }
         return (
-            <div style={style} className='task'>
-                <h2>{task.title}</h2>
-                <p>{task.description}</p>
-                <p>{task.comment}</p>
-                <div className='status'>
-                    <button style={style} onClick={() => this.props.onClick1(task)}>{task.isDone ? 'Reprendre' : 'Terminer'}</button>
-                    <button style={style} onClick={() => this.props.onClick2(task)}>{task.isDeleted ? 'Réstaurer' : 'Supprimer'}</button>
-                </div>
+            <div className='task' style={styleBg}>
+                <h2 style={styleTxt}>{task.title}</h2>
+                <p style={styleTxt}>{task.description}</p>
+                <p style={styleTxt}>{task.comment}</p>
+                {(!task.isOnGoing) &&
+                    <div className='status'>
+                        <button style={styleBg} onClick={() => this.props.onClick3(task)}>Commencer</button>
+                        <button style={styleBg} onClick={() => this.props.onClick2(task)}>Supprimer</button>
+                    </div>
+                }
+                {(!task.isDone && task.isOnGoing) &&
+                    <div className='status'>
+                        <button style={styleBg} onClick={() => this.props.onClick1(task)}>Terminer</button>
+                        <button style={styleBg} onClick={() => this.props.onClick3(task)}>Arrêter</button>
+                        <button style={styleBg} onClick={() => this.props.onClick2(task)}>Supprimer</button>
+                    </div>
+                }
+                {(task.isDone) &&
+                    <div className='status'>
+                        <button style={styleBg} onClick={() => this.props.onClick2(task)}>Supprimer</button>
+                    </div>
+                }
             </div>
-        )
+        );
     }
 }
 
