@@ -1,9 +1,20 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import TaskItem from './TaskItem';
 import TaskForm from './TaskForm';
 
 const TaskList = () => {
     const [tasks, setTasks] = useState([]);
+
+    useEffect(() => {
+        const storedTasks = localStorage.getItem("tasks");
+        if (storedTasks) {
+            setTasks(JSON.parse(storedTasks));
+        }
+    }, []);
+
+    useEffect(() => {
+        localStorage.setItem("tasks", JSON.stringify(tasks));
+    }, [tasks]);
 
     const handleDone = (id) => {
         const newTasks = [...tasks];
