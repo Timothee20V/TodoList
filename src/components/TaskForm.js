@@ -1,27 +1,24 @@
-import React, {Component} from 'react';
+import React, { useState } from 'react';
 
-class TaskForm extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            id: '',
-            isDone: false,
-            isDeleted: false,
-            isOnGoing: false,
-            title: '',
-            description: '',
-            comment: ''
-        };
+const TaskForm = (props) => {
+    const [state, setState] = useState({
+        id: '',
+        isDone: false,
+        isDeleted: false,
+        isOnGoing: false,
+        title: '',
+        description: '',
+        comment: ''
+    });
+
+    const handleChange = (event) => {
+        const {name, value} = event.target;
+        setState(prevState => ({...prevState, [name]: value}));
     }
 
-    handleChange = (event) => {
-        const {name, value} = event.target
-        this.setState({[name]: value});
-    }
-
-    handleSubmit = (event) => {
+    const handleSubmit = (event) => {
         event.preventDefault();
-        const {id, title, description, comment} = this.state;
+        const {id, title, description, comment} = state;
         const newTask = {
             id,
             isDone: false,
@@ -29,10 +26,10 @@ class TaskForm extends Component {
             isOnGoing: false,
             title,
             description,
-            comment,
+            comment
         };
-        this.props.handleCreate(newTask);
-        this.setState({
+        props.handleCreate(newTask);
+        setState({
             id:'',
             title: '',
             description: '',
@@ -40,31 +37,28 @@ class TaskForm extends Component {
         });
     }
 
-
-    render() {
-        return (
-            <form className='task' onSubmit={this.handleSubmit}>
-                <label>
-                    Titre :
-                    <input type="text" name="title" value={this.state.title} onChange={this.handleChange}/>
-                </label>
-                <br/>
-                <label>
-                    Description :
-                    <input type="text" name="description" value={this.state.description} onChange={this.handleChange}/>
-                </label>
-                <br/>
-                <label>
-                    Commentaire :
-                    <input type="text" name="comment" value={this.state.comment} onChange={this.handleChange}/>
-                </label>
-                <br/>
-                <div className='status'>
-                    <button type="submit">Créer</button>
-                </div>
-            </form>
-        )
-    }
+    return (
+        <form className='task' onSubmit={handleSubmit}>
+            <label>
+                Titre :
+                <input type="text" name="title" value={state.title} onChange={handleChange}/>
+            </label>
+            <br/>
+            <label>
+                Description :
+                <input type="text" name="description" value={state.description} onChange={handleChange}/>
+            </label>
+            <br/>
+            <label>
+                Commentaire :
+                <input type="text" name="comment" value={state.comment} onChange={handleChange}/>
+            </label>
+            <br/>
+            <div className='status'>
+                <button type="submit">Créer</button>
+            </div>
+        </form>
+    )
 }
 
 export default TaskForm;
