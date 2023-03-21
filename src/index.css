@@ -35,3 +35,24 @@ p, button {
     width: 100%;
     margin: auto;
 }
+
+.displayListRowColumn {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.modal {
+    font-size: 24px;
+    border-radius: 10px;
+}
+.modal > .header {
+    width: 100%;
+    border-bottom: 1px solid gray;
+    font-size: 32px;
+    text-align: center;
+    padding: 5px;
+}
+.modal > .content {
+    width: 100%;
+    padding: 10px 5px;
+}

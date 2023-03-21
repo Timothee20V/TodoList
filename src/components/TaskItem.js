@@ -40,7 +40,16 @@ function TaskItem(props) {
                     </div>
                 }
             </div>
-
+            <div>
+                <Popup trigger={<button>Modifier</button>} modal position="right center" contentStyle={{borderRadius: "5px"}}>
+                    <div className="modal">
+                        <div className="header">Modifier la tâche</div>
+                        <div className="content">
+                            Contenu de la popup ici.
+                        </div>
+                    </div>
+                </Popup>
+            </div>
         </div>
     );
 }
