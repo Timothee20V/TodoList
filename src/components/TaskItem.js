@@ -1,4 +1,7 @@
 import React from 'react';
+import Popup from "reactjs-popup";
+import 'reactjs-popup/dist/index.css';
+
 
 function TaskItem(props) {
     const task = props.task;
@@ -12,24 +15,32 @@ function TaskItem(props) {
             <h2 style={style}>{task.title}</h2>
             <p style={style}>{task.description}</p>
             <p style={style}>{task.comment}</p>
-            {(!task.isOnGoing) &&
-                <div className='status'>
-                    <button style={style} onClick={() => props.onClick3(task)}>Commencer</button>
-                    <button style={style} onClick={() => props.onClick2(task)}>Supprimer</button>
-                </div>
-            }
-            {(!task.isDone && task.isOnGoing) &&
-                <div className='status'>
-                    <button style={style} onClick={() => props.onClick1(task)}>Terminer</button>
-                    <button style={style} onClick={() => props.onClick3(task)}>Arrêter</button>
-                    <button style={style} onClick={() => props.onClick2(task)}>Supprimer</button>
-                </div>
-            }
-            {(task.isDone) &&
-                <div className='status'>
-                    <button style={style} onClick={() => props.onClick2(task)}>Supprimer</button>
-                </div>
-            }
+            <div>
+                {(!task.isOnGoing && !task.isDeleted) &&
+                    <div className='status'>
+                        <button style={style} onClick={() => props.onClick3(task)}>Commencer</button>
+                        <button style={style} onClick={() => props.onClick2(task)}>Supprimer</button>
+                    </div>
+                }
+                {(!task.isDone && task.isOnGoing && !task.isDeleted) &&
+                    <div className='status'>
+                        <button style={style} onClick={() => props.onClick1(task)}>Terminer</button>
+                        <button style={style} onClick={() => props.onClick3(task)}>Arrêter</button>
+                        <button style={style} onClick={() => props.onClick2(task)}>Supprimer</button>
+                    </div>
+                }
+                {(task.isDone && !task.isDeleted) &&
+                    <div className='status'>
+                        <button style={style} onClick={() => props.onClick2(task)}>Supprimer</button>
+                    </div>
+                }
+                {(task.isDeleted) &&
+                    <div>
+                        <button style={style} onClick={() => props.onClick4(task)}>Restaurer la tâche</button>
+                    </div>
+                }
+            </div>
+
         </div>
     );
 }
