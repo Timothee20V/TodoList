@@ -1,8 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import TaskList from './components/TaskList.js';
+import App from './app/App.js';
 import './index.css';
 
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<TaskList/>);
+root.render(<App />);
+
+
