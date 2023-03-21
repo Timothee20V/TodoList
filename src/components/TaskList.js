@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import TaskItem from './TaskItem';
 import TaskForm from './TaskForm';
+import Typography from "@mui/material/Typography";
 
 const TaskList = () => {
     const [tasks, setTasks] = useState([]);
@@ -39,6 +40,22 @@ const TaskList = () => {
         setTasks([...tasks, newTask]);
     };
 
+    const handleChangeTitle = (id, value) => {
+        const newTasks = [...tasks];
+        newTasks[id].title = value;
+        setTasks(newTasks);
+    }
+    const handleChangeDescription = (id, value) => {
+        const newTasks = [...tasks];
+        newTasks[id].description = value;
+        setTasks(newTasks);
+    }
+    const handleChangeComment = (id, value) => {
+        const newTasks = [...tasks];
+        newTasks[id].comment = value;
+        setTasks(newTasks);
+    }
+
     const renderTask = (task) => {
         return (
             <TaskItem
@@ -46,6 +63,9 @@ const TaskList = () => {
                 onClick1={() => handleDone(task.id)}
                 onClick2={() => handleDelete(task.id)}
                 onClick3={() => handleOnGoing(task.id)}
+                onValueChangeTitle={(value) => handleChangeTitle(task.id, value)}
+                onValueChangeDescription={(value) => handleChangeDescription(task.id, value)}
+                onValueChangeComment={(value) => handleChangeComment(task.id, value)}
                 task={task}
             />
         );
@@ -72,8 +92,10 @@ const TaskList = () => {
 
     return (
         <div>
-            <h1>TODOLIST</h1>
-            <div className='lists'>
+            <Typography id="modal-modal-title" variant="h4" component="h2" sx={{margin: 5}}>
+                TODOLIST
+            </Typography>
+            <div className='lists' style={{border: '2px solid', borderRadius: '10px'}}>
                 <div className='column'>
                     <p>A faire</p>
                     {renderOnGoingTasks()}

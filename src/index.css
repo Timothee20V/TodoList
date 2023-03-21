@@ -6,15 +6,20 @@ p, button {
     margin: 2px;
 }
 
-.task {
+.center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card {
     border: solid 2px black;
-    border-radius: 5px 5px 5px 5px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 5px;
-    margin: 2px;
+    margin-top: 10px;
 }
 
 .lists {
@@ -39,6 +44,13 @@ p, button {
 .displayListRowColumn {
     display: flex;
     flex-wrap: wrap;
+}
+
+.modif {
+    position: relative;
+    top: 0;
+    right: 0;
+    left: 93%;
 }
 
 .modal {

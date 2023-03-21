@@ -1,6 +1,12 @@
 import React from 'react';
-import Popup from "reactjs-popup";
 import 'reactjs-popup/dist/index.css';
+import DisplayModal from './DisplayModal';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 
 
 function TaskItem(props) {
@@ -10,47 +16,63 @@ function TaskItem(props) {
     const style = {
         background: color,
     }
+
+    const card = (
+        <React.Fragment>
+            <div style={{width: '100%'}}>
+                <div className='modif'>
+                    <DisplayModal
+                        props={task}
+                        onValueChangeTitle={props.onValueChangeTitle}
+                        onValueChangeDescription={props.onValueChangeDescription}
+                        onValueChangeComment={props.onValueChangeComment}
+                    />
+                </div>
+                <div className='center'>
+                    <CardContent>
+                        <Typography variant="h5" component="div" sx={{textAlign: "center"}}>
+                            {task.title}
+                        </Typography>
+                        <Typography sx={{mb: 1.5, textAlign: "center"}} color="text.secondary">
+                            {task.description}
+                        </Typography>
+                        <Typography sx={{fontSize: 14, textAlign: "center"}} color="text.secondary" gutterBottom>
+                            {task.comment}
+                        </Typography>
+                    </CardContent>
+                    <CardActions>
+                        {(!task.isOnGoing && !task.isDeleted) &&
+                            <div className='status'>
+                                <Button variant="outlined" onClick={() => props.onClick3(task)}>Commencer</Button>
+                            </div>
+                        }
+                        {(!task.isDone && task.isOnGoing && !task.isDeleted) &&
+                            <div className='status'>
+                                <Button variant="outlined" onClick={() => props.onClick1(task)}>Terminer</Button>
+                            </div>
+                        }
+                        {(task.isDone && !task.isDeleted) &&
+                            <div className='status'>
+                                <Button variant="outlined" onClick={() => props.onClick2(task)}>Supprimer</Button>
+                            </div>
+                        }
+                        {(task.isDeleted) &&
+                            <div>
+                                <Button variant="outlined" onClick={() => props.onClick4(task)}>Restaurer la tâche</Button>
+                                <Button variant="outlined" onClick={() => props.onClick4(task)}>Restaurer la tâche</Button>
+                            </div>
+                        }
+                    </CardActions>
+                </div>
+            </div>
+        </React.Fragment>
+    );
+
     return (
-        <div className='task' style={style}>
-            <h2 style={style}>{task.title}</h2>
-            <p style={style}>{task.description}</p>
-            <p style={style}>{task.comment}</p>
-            <div>
-                {(!task.isOnGoing && !task.isDeleted) &&
-                    <div className='status'>
-                        <button style={style} onClick={() => props.onClick3(task)}>Commencer</button>
-                        <button style={style} onClick={() => props.onClick2(task)}>Supprimer</button>
-                    </div>
-                }
-                {(!task.isDone && task.isOnGoing && !task.isDeleted) &&
-                    <div className='status'>
-                        <button style={style} onClick={() => props.onClick1(task)}>Terminer</button>
-                        <button style={style} onClick={() => props.onClick3(task)}>Arrêter</button>
-                        <button style={style} onClick={() => props.onClick2(task)}>Supprimer</button>
-                    </div>
-                }
-                {(task.isDone && !task.isDeleted) &&
-                    <div className='status'>
-                        <button style={style} onClick={() => props.onClick2(task)}>Supprimer</button>
-                    </div>
-                }
-                {(task.isDeleted) &&
-                    <div>
-                        <button style={style} onClick={() => props.onClick4(task)}>Restaurer la tâche</button>
-                    </div>
-                }
-            </div>
-            <div>
-                <Popup trigger={<button>Modifier</button>} modal position="right center" contentStyle={{borderRadius: "5px"}}>
-                    <div className="modal">
-                        <div className="header">Modifier la tâche</div>
-                        <div className="content">
-                            Contenu de la popup ici.
-                        </div>
-                    </div>
-                </Popup>
-            </div>
-        </div>
+        <Box sx={{minWidth: 275}}>
+            <Card sx={{backgroundColor: color, borderRadius: 3}} className='card'>{card}</Card>
+        </Box>
+
     );
 }
 

@@ -1,14 +1,20 @@
 import React from 'react';
-import Popup from 'reactjs-popup';
-
+import DisplayModal from './DisplayModal';
 
 const Home = () => {
-    return(
+    const props = {
+        id: 0,
+        title: "Titre de la tâche",
+        description: "Description de la tâche",
+        comment: "Commentaire de la tâche",
+        isOnGoing: true,
+        isDone: true,
+        isDeleted: true,
+    }
+    return (
         <div>
-            <h1>Bienvenue !</h1>
-            <Popup trigger={<button> Trigger</button>} position="right center">
-                <div>Contenu de la popup ici !!</div>
-            </Popup>
+            <h1>Bienvenu !</h1>
+            <DisplayModal props={props}/>
         </div>
     )
 }
