@@ -1,5 +1,5 @@
 .status {
-    margin: 20px 0 10px;
+    margin: 0 0 10px;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -22,7 +22,6 @@ p, button {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 5px;
     margin-top: 10px;
 }
 
@@ -51,8 +50,7 @@ p, button {
 }
 
 .modif {
-    display: flex;
-    justify-content: flex-end;
+    text-align: right;
 }
 
 .modal {

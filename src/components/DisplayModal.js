@@ -14,7 +14,7 @@ export default function DisplayModal(props){
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-    const [setValue] = React.useState('');
+    const [value, setValue] = React.useState('');
 
     let color = props.props.isOnGoing ? '#065DC6' : '#C61B06';
     color = props.props.isDone ? '#187506' : color;
@@ -60,6 +60,7 @@ export default function DisplayModal(props){
                 sx={{
                     color: 'rgba(255, 255, 255, 0.9)',
                     backgroundColor: 'transparent',
+                    margin:0.5,
                     '&:hover': {
                         backgroundColor: 'rgba(0, 0, 0, 0.2)'
                     }
@@ -106,13 +107,7 @@ export default function DisplayModal(props){
                     </FormControl>
                     <div className="displayButton">
                         {(!props.props.isOnGoing && !props.props.isDeleted && !props.props.isDone) &&
-                            <div className='status'>
-                                <Button
-                                    color="neutral"
-                                    variant="outlined"
-                                    onClick={() => props.onClick1(props)}
-                                    sx={buttons}
-                                >Terminer</Button>
+                            <div className='status' style={{marginTop:20}}>
                                 <Button
                                     color="neutral"
                                     variant="outlined"
@@ -122,19 +117,19 @@ export default function DisplayModal(props){
                                 <Button
                                     color="neutral"
                                     variant="outlined"
+                                    onClick={() => props.onClick1(props)}
+                                    sx={buttons}
+                                >Terminer</Button>
+                                <Button
+                                    color="neutral"
+                                    variant="outlined"
                                     onClick={() => props.onClick2(props)}
                                     sx={buttons}
                                 >Supprimer</Button>
                             </div>
                         }
                         {(!props.props.isDone && props.props.isOnGoing && !props.props.isDeleted) &&
-                            <div className='status'>
-                                <Button
-                                    color="neutral"
-                                    variant="outlined"
-                                    onClick={() => props.onClick1(props)}
-                                    sx={buttons}
-                                >Terminer</Button>
+                            <div className='status' style={{marginTop:20}}>
                                 <Button
                                     color="neutral"
                                     variant="outlined"
@@ -144,13 +139,19 @@ export default function DisplayModal(props){
                                 <Button
                                     color="neutral"
                                     variant="outlined"
+                                    onClick={() => props.onClick1(props)}
+                                    sx={buttons}
+                                >Terminer</Button>
+                                <Button
+                                    color="neutral"
+                                    variant="outlined"
                                     onClick={() => props.onClick2(props)}
                                     sx={buttons}
                                 >Supprimer</Button>
                             </div>
                         }
                         {(props.props.isDone && !props.props.isDeleted) &&
-                            <div className='status'>
+                            <div className='status' style={{marginTop:20}}>
                                 <Button
                                     color="neutral"
                                     variant="outlined"
