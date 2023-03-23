@@ -13,9 +13,6 @@ function TaskItem(props) {
     const task = props.task;
     let color = task.isOnGoing ? '#065DC6' : '#C61B06';
     color = task.isDone ? '#187506' : color;
-    const style = {
-        background: color,
-    }
 
     const card = (
         <React.Fragment>
@@ -26,6 +23,10 @@ function TaskItem(props) {
                         onValueChangeTitle={props.onValueChangeTitle}
                         onValueChangeDescription={props.onValueChangeDescription}
                         onValueChangeComment={props.onValueChangeComment}
+                        onClick1={() => props.onClick1(task)}
+                        onClick2={() => props.onClick2(task)}
+                        onClick3={() => props.onClick3(task)}
+                        onClick4={() => props.onClick4(task)}
                     />
                 </div>
                 <div className='center'>

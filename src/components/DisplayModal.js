@@ -1,13 +1,12 @@
 import React from "react";
-import Button from "@mui/material/Button";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import Modal from '@mui/material/Modal';
+import Button from "@mui/joy/Button";
+import Typography from "@mui/joy/Typography";
+import Modal from '@mui/joy/Modal';
 import SettingsIcon from '@mui/icons-material/Settings';
-import {TextField} from "@mui/material";
-import styled from "@emotion/styled";
-import { purple } from '@mui/material/colors';
-
+import IconButton from '@mui/joy/IconButton';
+import {FormControl, ModalClose, ModalDialog, Textarea} from "@mui/joy";
+import FormLabel from '@mui/joy/FormLabel';
+import Input from '@mui/joy/Input';
 
 export default function DisplayModal(props){
 
@@ -15,22 +14,14 @@ export default function DisplayModal(props){
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-    const [value, setValue] = React.useState('');
+    const [setValue] = React.useState('');
 
     let color = props.props.isOnGoing ? '#065DC6' : '#C61B06';
     color = props.props.isDone ? '#187506' : color;
 
     const style = {
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        width: 400,
         background: color,
-        border: '2px solid #000',
-        borderRadius: 2,
-        boxShadow: 24,
-        p: 4,
+        borderColor: 'black',
     };
 
     const style1 = {
@@ -38,6 +29,15 @@ export default function DisplayModal(props){
         display: 'flex',
         flexDirection: 'row',
         gap: '30px'
+    };
+
+    const buttons = {
+        backgroundColor: 'transparent',
+        borderColor: 'rgba(0, 0, 0, 0.5)',
+        '&:hover': {
+            backgroundColor: 'rgba(0, 0, 0, 0.2)',
+            borderColor: 'rgba(0, 0, 0, 0.8)',
+        }
     };
 
     const handleChangeTitle = (event) => {
@@ -53,108 +53,136 @@ export default function DisplayModal(props){
         props.onValueChangeComment(event.target.value);
     }
 
-    const ColorButton = styled(Button)(({theme}) => ({
-        color: theme.palette.getContrastText(purple[500]),
-        backgroundColor: purple[500],
-        '&:hover': {
-            backgroundColor: purple[700],
-        },
-    }));
-
     return (
         <div>
-            <ColorButton onClick={handleOpen} sx={{color: 'white', opacity: 0.5, minWidth: 0, padding: 0}}><SettingsIcon/></ColorButton>
+            <IconButton
+                onClick={handleOpen}
+                sx={{
+                    color: 'rgba(255, 255, 255, 0.9)',
+                    backgroundColor: 'transparent',
+                    '&:hover': {
+                        backgroundColor: 'rgba(0, 0, 0, 0.2)'
+                    }
+            }}>
+                <SettingsIcon/></IconButton>
             <Modal
                 open={open}
-                onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-            >
-                <Box sx={style}>
-
-                    <Typography id="modal-modal-title" variant="h4" component="h2">
-                        Modifier la tâche
-                    </Typography>
+                onClose={handleClose}>
+                <ModalDialog sx={style}>
+                    <ModalClose sx={{
+                        color: 'rgba(0, 0, 0, 0.7)',
+                        backgroundColor: 'transparent',
+                        '&:hover': {
+                            backgroundColor: 'rgba(0, 0, 0, 0.2)'
+                        }
+                    }}/>
+                    <Typography level="h3">Modifier la tâche</Typography>
                     <div style={style1}>
-                        <TextField
-                            required
-                            id="outlined-required"
-                            label="Titre"
-                            onChange={handleChangeTitle}
-                            value={props.props.title}
-                        />
-                        <TextField
-                            id="outlined-required"
-                            label="Description"
-                            onChange={handleChangeDescription}
-                            value={props.props.description}
-                        />
+                        <FormControl>
+                            <FormLabel>Titre</FormLabel>
+                            <Input
+                                value={props.props.title}
+                                onChange={handleChangeTitle}
+                            />
+                        </FormControl>
+                        <FormControl>
+                            <FormLabel>Description</FormLabel>
+                            <Input
+                                onChange={handleChangeDescription}
+                                value={props.props.description}
+                            />
+                        </FormControl>
                     </div>
-                    <TextField
-                        id="outlined-required"
-                        label="Commentaire"
-                        onChange={handleChangeComment}
-                        value={props.props.comment}
-                        multiline
-                        fullWidth
-                    />
-                    <div>
-                        {(!props.props.isOnGoing && !props.props.isDeleted) &&
+                    <FormControl>
+                        <FormLabel>Commentaire</FormLabel>
+                        <Textarea
+                            value={props.props.comment}
+                            onChange={handleChangeComment}
+                            multiline
+                            fullWidth
+                            minRows={2}
+                            maxRows={4}
+                        />
+                    </FormControl>
+                    <div className="displayButton">
+                        {(!props.props.isOnGoing && !props.props.isDeleted && !props.props.isDone) &&
                             <div className='status'>
-                                <ColorButton
+                                <Button
+                                    color="neutral"
                                     variant="outlined"
-                                    onClick={() => props.onClick1(props.props)}
-                                    color="error"
-                                >Terminer</ColorButton>
-                                <ColorButton
+                                    onClick={() => props.onClick1(props)}
+                                    sx={buttons}
+                                >Terminer</Button>
+                                <Button
+                                    color="neutral"
                                     variant="outlined"
-                                    onClick={() => props.onClick3(props.props)}
-                                >Commencer</ColorButton>
-                                <ColorButton
+                                    onClick={() => props.onClick3(props)}
+                                    sx={buttons}
+                                >Commencer</Button>
+                                <Button
+                                    color="neutral"
                                     variant="outlined"
-                                    onClick={() => props.onClick2(props.props)}
-                                >Supprimer</ColorButton>
+                                    onClick={() => props.onClick2(props)}
+                                    sx={buttons}
+                                >Supprimer</Button>
                             </div>
                         }
                         {(!props.props.isDone && props.props.isOnGoing && !props.props.isDeleted) &&
                             <div className='status'>
-                                <ColorButton
+                                <Button
+                                    color="neutral"
                                     variant="outlined"
-                                    onClick={() => props.onClick1(props.props)}
-                                >Terminer</ColorButton>
-                                <ColorButton
+                                    onClick={() => props.onClick1(props)}
+                                    sx={buttons}
+                                >Terminer</Button>
+                                <Button
+                                    color="neutral"
                                     variant="outlined"
-                                    onClick={() => props.onClick3(props.props)}
-                                >Reporter</ColorButton>
-                                <ColorButton
+                                    onClick={() => props.onClick3(props)}
+                                    sx={buttons}
+                                >Reporter</Button>
+                                <Button
+                                    color="neutral"
                                     variant="outlined"
-                                    onClick={() => props.onClick2(props.props)}
-                                >Supprimer</ColorButton>
+                                    onClick={() => props.onClick2(props)}
+                                    sx={buttons}
+                                >Supprimer</Button>
                             </div>
                         }
                         {(props.props.isDone && !props.props.isDeleted) &&
                             <div className='status'>
-                                <ColorButton
+                                <Button
+                                    color="neutral"
                                     variant="outlined"
-                                    onClick={() => props.onClick1(props.props)}
-                                >Annuler</ColorButton>
-                                <ColorButton
+                                    onClick={() => props.onClick1(props)}
+                                    sx={buttons}
+                                >Annuler</Button>
+                                <Button
+                                    color="neutral"
                                     variant="outlined"
-                                    onClick={() => props.onClick3(props.props)}
-                                >Refaire</ColorButton>
-                                <ColorButton
+                                    onClick={() => props.onClick3(props)}
+                                    sx={buttons}
+                                >Reprendre</Button>
+                                <Button
+                                    color="neutral"
                                     variant="outlined"
-                                    onClick={() => props.onClick2(props.props)}
-                                >Supprimer</ColorButton>
+                                    onClick={() => props.onClick2(props)}
+                                    sx={buttons}
+                                >Supprimer</Button>
                             </div>
                         }
                         {(props.props.isDeleted) &&
-                            <div>
-                                <ColorButton variant="outlined" onClick={() => props.onClick4(props.props)}>Restaurer la tâche</ColorButton>
+                            <div className='status'>
+                                <Button
+                                    color="neutral"
+                                    variant="outlined"
+                                    onClick={() => props.onClick4(props)}
+                                    sx={buttons}
+                                >Restaurer la tâche</Button>
                             </div>
                         }
                     </div>
-                </Box>
+                </ModalDialog>
             </Modal>
         </div>
     )

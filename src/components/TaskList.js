@@ -20,6 +20,7 @@ const TaskList = () => {
     const handleDone = (id) => {
         const newTasks = [...tasks];
         newTasks[id].isDone = !tasks[id].isDone;
+        newTasks[id].isOnGoing = false;
         setTasks(newTasks);
     };
 
@@ -32,6 +33,13 @@ const TaskList = () => {
     const handleOnGoing = (id) => {
         const newTasks = [...tasks];
         newTasks[id].isOnGoing = !tasks[id].isOnGoing;
+        newTasks[id].isDone = false;
+        setTasks(newTasks);
+    };
+
+    const handleUnDelete = (id) => {
+        const newTasks = [...tasks];
+        newTasks[id].isDeleted = !tasks[id].isDeleted;
         setTasks(newTasks);
     };
 
@@ -63,6 +71,7 @@ const TaskList = () => {
                 onClick1={() => handleDone(task.id)}
                 onClick2={() => handleDelete(task.id)}
                 onClick3={() => handleOnGoing(task.id)}
+                onClick4={() => handleUnDelete(task.id)}
                 onValueChangeTitle={(value) => handleChangeTitle(task.id, value)}
                 onValueChangeDescription={(value) => handleChangeDescription(task.id, value)}
                 onValueChangeComment={(value) => handleChangeComment(task.id, value)}

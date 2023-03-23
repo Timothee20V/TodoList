@@ -1,5 +1,9 @@
 .status {
+    margin: 20px 0 10px;
     display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 30px;
 }
 
 p, button {
@@ -47,10 +51,8 @@ p, button {
 }
 
 .modif {
-    position: relative;
-    top: 0;
-    right: 0;
-    left: 93%;
+    display: flex;
+    justify-content: flex-end;
 }
 
 .modal {
