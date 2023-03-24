@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import TaskItem from '../components/TaskItem';
+import TaskItem from '../../components/TaskItem';
 
 const Informations = () => {
 

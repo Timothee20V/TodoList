@@ -1,5 +1,5 @@
 import React from 'react';
-import DisplayModal from './DisplayModal';
+import DisplayModal from '../../components/DisplayModal';
 
 const Home = () => {
     const props = {

@@ -1,9 +1,9 @@
 import {BrowserRouter, Routes, Route} from "react-router-dom";
-import Home from "../components/Home.js";
-import TaskList from "../components/TaskList.js";
+import Home from "./pages/home/Home.js";
+import TaskList from "./pages/TaskList.js";
 import React from "react";
-import Navigation from '../navigation/Navigation.js';
-import Informations from "../informations/Informations";
+import Navigation from './navigation/Navigation.js';
+import Informations from "./pages/informations/Informations";
 
 function App() {
     return (

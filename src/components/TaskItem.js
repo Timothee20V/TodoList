@@ -40,7 +40,6 @@ function TaskItem(props) {
                 <div >
                     <CardContent className='center' style={{position:"relative", bottom:"1.5rem", zIndex:0, display:"flex", flexDirection:"column", gap:20}}>
                         <Typography level="h3" sx={{width:"100%", textAlign:"center", paddingBottom:1, borderBottom:"solid 2px rgba(0, 0, 0, 0.5)"}}>{task.title}</Typography>
-
                         <Typography level="h6">{task.description}</Typography>
                         <Typography level="body1">{task.comment}</Typography>
                     </CardContent>

@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import TaskItem from './TaskItem';
-import TaskForm from './TaskForm';
+import TaskItem from '../components/TaskItem';
+import TaskForm from '../components/TaskForm';
 import Typography from "@mui/material/Typography";
 
 const TaskList = () => {
